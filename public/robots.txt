@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+
+# Host
+Host: https://lotto.ludgi.ai
+
+# Sitemaps
+Sitemap: https://lotto.ludgi.ai/sitemap.xml
