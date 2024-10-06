@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import DisplayLudgi from "./components/DisplayLudgi";
 
 const getBackgroundColor = (num: number) => {
-  if (num <= 9) return "bg-yellow-400";
+  if (num <= 9) return "bg-yellow-500";
   if (num <= 19) return "bg-blue-400";
   if (num <= 29) return "bg-red-400";
   if (num <= 39) return "bg-gray-400";
-  return "bg-green-400";
+  return "bg-green-500";
 };
 
 const loadingPhrases = [
@@ -103,12 +103,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gray-900 p-4 sm:p-8 flex flex-col items-center justify-center">
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-8 text-center"
+        className="text-2xl sm:text-4xl font-bold text-gray-100 mb-4 sm:mb-8 text-center"
       >
         로또 번호 생성기
       </motion.h1>
@@ -117,9 +117,9 @@ export default function Home() {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-lg p-4 sm:p-6 shadow-lg mb-4 sm:mb-8 w-full max-w-md"
+        className="bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg mb-4 sm:mb-8 w-full max-w-md"
       >
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label className="block text-gray-300 text-sm font-bold mb-2">
           생성할 로또 번호 세트 수:
         </label>
         <div className="flex items-center">
@@ -129,13 +129,13 @@ export default function Home() {
             max="10"
             value={count}
             onChange={(e) => setCount(parseInt(e.target.value))}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+            className="shadow appearance-none border bg-gray-700 border-gray-600 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline mr-2"
           />
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={generateLottoNumbers}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline whitespace-nowrap"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline whitespace-nowrap"
           >
             번호 생성
           </motion.button>
@@ -148,7 +148,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-lg p-4 shadow-lg mb-4"
+            className="bg-gray-800 rounded-lg p-4 shadow-lg mb-4"
           >
             <div className="flex justify-center items-center h-40">
               <motion.div
@@ -164,7 +164,7 @@ export default function Home() {
                 className="w-20 h-20 bg-blue-500 rounded-full"
               />
             </div>
-            <p className="text-center text-gray-600 mt-2">
+            <p className="text-center text-gray-400 mt-2">
               {loadingPhrase}
               <span className="inline-block w-8 text-left">{dots}</span>
             </p>
@@ -176,7 +176,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-lg p-4 shadow-lg mb-4"
+              className="bg-gray-800 rounded-lg p-4 shadow-lg mb-4"
             >
               <div className="flex flex-wrap justify-center gap-2">
                 {set.slice(0, 6).map((num, i) => (
@@ -200,7 +200,7 @@ export default function Home() {
                   {set[6]}
                 </motion.div>
               </div>
-              <p className="text-center text-gray-600 mt-2">당첨번호</p>
+              <p className="text-center text-gray-400 mt-2">당첨번호</p>
             </motion.div>
           ))
         )}
