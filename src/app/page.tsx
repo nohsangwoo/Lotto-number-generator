@@ -1,101 +1,110 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import DisplayLudgi from "./components/DisplayLudgi";
+
+const getBackgroundColor = (num: number) => {
+  if (num <= 9) return "bg-yellow-400";
+  if (num <= 19) return "bg-blue-400";
+  if (num <= 29) return "bg-red-400";
+  if (num <= 39) return "bg-gray-400";
+  return "bg-green-400";
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [count, setCount] = useState(1);
+  const [numbers, setNumbers] = useState<number[][]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const generateLottoNumbers = () => {
+    const newNumbers = [];
+    for (let i = 0; i < count; i++) {
+      const set = new Set<number>();
+      while (set.size < 7) {
+        set.add(Math.floor(Math.random() * 45) + 1);
+      }
+      newNumbers.push(Array.from(set).sort((a, b) => a - b));
+    }
+    setNumbers(newNumbers);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex flex-col items-center justify-center">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-8 text-center"
+      >
+        로또 번호 생성기
+      </motion.h1>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-lg p-4 sm:p-6 shadow-lg mb-4 sm:mb-8 w-full max-w-md"
+      >
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          생성할 로또 번호 세트 수:
+        </label>
+        <div className="flex items-center">
+          <input
+            type="number"
+            min="1"
+            max="10"
+            value={count}
+            onChange={(e) => setCount(parseInt(e.target.value))}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+          />
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={generateLottoNumbers}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline whitespace-nowrap"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            번호 생성
+          </motion.button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </motion.div>
+
+      <div className="w-full max-w-md">
+        {numbers.map((set, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-white rounded-lg p-4 shadow-lg mb-4"
+          >
+            <div className="flex flex-wrap justify-center gap-2">
+              {set.slice(0, 6).map((num, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 20, delay: i * 0.1 }}
+                  className={`w-10 h-10 rounded-full ${getBackgroundColor(num)} flex items-center justify-center text-white font-bold text-lg`}
+                >
+                  {num}
+                </motion.div>
+              ))}
+              <span className="flex items-center text-gray-400 mx-1">+</span>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6 }}
+                className={`w-10 h-10 rounded-full ${getBackgroundColor(set[6])} flex items-center justify-center text-white font-bold text-lg`}
+              >
+                {set[6]}
+              </motion.div>
+            </div>
+            <p className="text-center text-gray-600 mt-2">당첨번호</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <DisplayLudgi />
     </div>
   );
 }
