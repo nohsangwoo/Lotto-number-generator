@@ -9,6 +9,10 @@
 
 https://lotto.ludgi.ai/
 
+# sitemap
+
+https://lotto.ludgi.ai/sitemap.xml
+
 ## 말 그대로 로또 번호 생성기다
 
 목적은 ludgi.ai를 홍보하기 위한 목적
